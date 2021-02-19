@@ -22,7 +22,7 @@ defmodule Taglet.TagletQuery do
   defp join_taggings_from_tag(query, context, taggable_type, nil) do
     query
     |> join(:inner, [t], tg in Tagging,
-      t.id == tg.tag_id
+      on: t.id == tg.tag_id
       and
       tg.taggable_type == ^taggable_type
       and
@@ -32,7 +32,7 @@ defmodule Taglet.TagletQuery do
   defp join_taggings_from_tag(query, context, taggable_type, taggable_id) do
     query
     |> join(:inner, [t], tg in Tagging,
-      t.id == tg.tag_id
+      on: t.id == tg.tag_id
       and
       tg.taggable_type == ^taggable_type
       and
@@ -98,7 +98,7 @@ defmodule Taglet.TagletQuery do
   defp join_taggings_from_model(query, context, taggable_type) do
     query
     |> join(:inner, [m], tg in Tagging,
-      tg.taggable_type == ^taggable_type
+      on: tg.taggable_type == ^taggable_type
       and
       tg.context == ^context
       and
@@ -108,6 +108,6 @@ defmodule Taglet.TagletQuery do
 
   defp join_tags(query) do
     query
-    |> join(:inner, [m, tg], t in Tag, t.id == tg.tag_id)
+    |> join(:inner, [m, tg], t in Tag, on: t.id == tg.tag_id)
   end
 end
